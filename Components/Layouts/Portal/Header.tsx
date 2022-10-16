@@ -18,6 +18,7 @@ import {
 import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { Fragment } from "react";
+import DarkMode from "../../DrakMode";
 
 const userNavigation = [
   { name: "Your Profile", href: "#" },
@@ -171,6 +172,9 @@ export default function Header() {
             </Link>
           </Popover.Group>
           <div className="hidden items-center justify-end md:flex md:flex-1 lg:w-0">
+            <div>
+              <DarkMode />
+            </div>
             {!session && (
               <a
                 href="api/auth/signin"
