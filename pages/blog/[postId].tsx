@@ -1,3 +1,6 @@
+import { JSXElementConstructor, ReactElement, ReactFragment, ReactPortal } from "react";
+import PortalLayout from "../../Components/Layouts/Portal";
+
 interface IProps {
   post: {
     userId: number;
@@ -21,6 +24,20 @@ function PostItem({ post }: IProps) {
   );
 }
 
+PostItem.getLayout = (
+  page: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | ReactFragment | ReactPortal | null | undefined
+) => {
+  return (
+    <PortalLayout
+      meta={{
+        title: "Blog",
+        name: "description",
+        description: "Create next app project",
+      }}>
+      {page}
+    </PortalLayout>
+  );
+};
 export default PostItem;
 
 export async function getServerSideProps(context: { params: { postId: string } }) {

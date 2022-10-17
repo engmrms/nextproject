@@ -15,7 +15,7 @@ import {
   Squares2X2Icon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { Fragment } from "react";
 import DarkMode from "../../DrakMode";
@@ -176,15 +176,9 @@ export default function Header() {
               <DarkMode />
             </div>
             {!session && (
-              <a
-                href="api/auth/signin"
-                className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"
-                onClick={e => {
-                  e.preventDefault();
-                  signIn();
-                }}>
-                Sign in
-              </a>
+              <Link href="auth/signin" className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900">
+                <a href="">Sign in</a>
+              </Link>
             )}
             {session && (
               <>

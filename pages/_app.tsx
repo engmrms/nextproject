@@ -1,31 +1,20 @@
+import { NextPage } from "next";
 import { SessionProvider, useSession } from "next-auth/react";
-import { AppProps } from "next/app";
-import React from "react";
-import PortalLayout from "../Components/Layouts/Portal";
+
+import React, { JSXElementConstructor, ReactElement, ReactFragment, ReactPortal } from "react";
 import "../styles/globals.css";
 
-function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
-  //console.log("app session", pageProps?.session);
-  return (
-    <SessionProvider session={session}>
-      {Component.auth ? (
-        <Auth>
-          <PortalLayout>
-            <Component {...pageProps} />
-          </PortalLayout>
-        </Auth>
-      ) : (
-        <PortalLayout>
-          <Component {...pageProps} />
-        </PortalLayout>
-      )}
-    </SessionProvider>
-  );
-}
+type AppProps = {
+  Component: NextPage & {
+    auth: boolean;
+    getLayout: (
+      page: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | ReactFragment | ReactPortal | null | undefined
+    ) => React.ReactNode;
+  };
+  pageProps: {} & { session: any };
+};
 
-export default MyApp;
-
-function Auth({ children }: { children: React.ReactNode }) {
+function Auth({ children }: { children: any }) {
   // if `{ required: true }` is supplied, `status` can only be "loading" or "authenticated"
   const { status } = useSession({ required: true });
 
@@ -35,3 +24,34 @@ function Auth({ children }: { children: React.ReactNode }) {
 
   return children;
 }
+
+function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
+  //console.log("app session", pageProps?.session);
+
+  const getLayout = Component.getLayout ?? ((page: any) => page);
+
+  return (
+    <SessionProvider session={session}>
+      {Component.auth ? <Auth>{getLayout(<Component {...pageProps} />)}</Auth> : getLayout(<Component {...pageProps} />)}
+      {/* {Component.auth ? (
+        <Auth>
+          {Component.resetLayout ? (
+            <Component {...pageProps} />
+          ) : (
+            <DashboardLayout>
+              <Component {...pageProps} />
+            </DashboardLayout>
+          )}
+        </Auth>
+      ) : Component.resetLayout ? (
+        <Component {...pageProps} />
+      ) : (
+        <PortalLayout>
+          <Component {...pageProps} />
+        </PortalLayout>
+      )} */}
+    </SessionProvider>
+  );
+}
+
+export default MyApp;

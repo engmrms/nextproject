@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { JSXElementConstructor, ReactElement, ReactFragment, ReactPortal } from "react";
+import PortalLayout from "../../Components/Layouts/Portal";
 
 interface IProps {
   posts: {
@@ -42,6 +44,20 @@ function Blog({ posts }: IProps) {
   );
 }
 
+Blog.getLayout = (
+  page: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | ReactFragment | ReactPortal | null | undefined
+) => {
+  return (
+    <PortalLayout
+      meta={{
+        title: "Blog",
+        name: "description",
+        description: "Create next app project",
+      }}>
+      {page}
+    </PortalLayout>
+  );
+};
 export default Blog;
 
 export async function getServerSideProps() {

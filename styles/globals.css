@@ -5,6 +5,9 @@
 @layer base {
   html,
   body {
-    @apply p-0 m-0 bg-white;
+    @apply p-0 m-0 bg-white h-full;
+  }
+  body > div {
+    @apply h-full flex flex-col;
   }
 }
