@@ -1,5 +1,6 @@
 import { JSXElementConstructor, ReactElement, ReactFragment, ReactPortal } from "react";
 import PortalLayout from "../../Components/Layouts/Portal";
+import { useToast } from "../../context/toast/useToast";
 
 interface IProps {
   post: {
@@ -11,6 +12,8 @@ interface IProps {
 }
 
 function PostItem({ post }: IProps) {
+  const toast = useToast(4000);
+
   return (
     <div className="bg-white py-12">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -18,6 +21,10 @@ function PostItem({ post }: IProps) {
           <h2 className="text-lg font-semibold text-indigo-600">{post.id}</h2>
           <p className="mt-2 text-3xl font-bold leading-8 tracking-tight text-gray-900 sm:text-4xl"> {post.title}</p>
           <p className="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">{post.body}</p>
+
+          <button type="button" onClick={() => toast("success", "You have successfully submitted the form")}>
+            show toast
+          </button>
         </div>
       </div>
     </div>

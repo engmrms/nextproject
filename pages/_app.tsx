@@ -1,7 +1,8 @@
 import { NextPage } from "next";
 import { SessionProvider, useSession } from "next-auth/react";
-
 import React, { JSXElementConstructor, ReactElement, ReactFragment, ReactPortal } from "react";
+import ToastContainer from "../context/toast/ToastContainer";
+import { ToastProvider } from "../context/toast/ToastContext";
 import "../styles/globals.css";
 
 type AppProps = {
@@ -31,9 +32,10 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   const getLayout = Component.getLayout ?? ((page: any) => page);
 
   return (
-    <SessionProvider session={session}>
-      {Component.auth ? <Auth>{getLayout(<Component {...pageProps} />)}</Auth> : getLayout(<Component {...pageProps} />)}
-      {/* {Component.auth ? (
+    <ToastProvider>
+      <SessionProvider session={session}>
+        {Component.auth ? <Auth>{getLayout(<Component {...pageProps} />)}</Auth> : getLayout(<Component {...pageProps} />)}
+        {/* {Component.auth ? (
         <Auth>
           {Component.resetLayout ? (
             <Component {...pageProps} />
@@ -50,7 +52,9 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
           <Component {...pageProps} />
         </PortalLayout>
       )} */}
-    </SessionProvider>
+      </SessionProvider>
+      <ToastContainer />
+    </ToastProvider>
   );
 }
 
