@@ -1,4 +1,5 @@
 import NextAuth from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 
@@ -12,7 +13,35 @@ export default NextAuth({
       clientId: process.env.GOOGLE_CLIENTID || "",
       clientSecret: process.env.GOOGLE_CLIENTSECRETS || "",
     }),
+    CredentialsProvider({
+      name: "Credentials",
+
+      async authorize(credentials, req) {
+        try {
+          const response = await fetch("http://localhost:3001/api/v1/auth/login", {
+            method: "POST",
+            body: JSON.stringify(credentials),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
+
+          const data = await response.json();
+
+          const {
+            data: { user },
+          } = data;
+          return user;
+        } catch (error) {
+          console.log(error);
+          return null;
+        }
+      },
+
+      credentials: {},
+    }),
   ],
+
   pages: {
     signIn: "/auth/signin",
     // signOut: "/auth/signout",
