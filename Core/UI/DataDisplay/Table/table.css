@@ -1,0 +1,19 @@
+@import "../../../Assets/css/Shared.css";
+
+@layer components {
+  table {
+    @apply min-w-full divide-y divide-gray-300;
+  }
+  table thead {
+    @apply bg-gray-200;
+  }
+  table th {
+    @apply px-6 py-3 text-right text-1.2   font-medium text-gray-900 uppercase tracking-wider;
+  }
+  table tbody {
+    @apply bg-white divide-y divide-gray-200;
+  }
+  table td {
+    @apply px-6 py-4 whitespace-nowrap;
+  }
+}

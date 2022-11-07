@@ -1,0 +1,46 @@
+:root {
+  --primary-color: #99b8b4;
+}
+
+.MuiPickersCalendar-week .MuiTypography-body2,
+.MuiPickersCalendarHeader-daysHeader .MuiTypography-caption,
+.MuiPickersCalendarHeader-switchHeader .MuiTypography-body1,
+.MuiPickersBasePicker-container .MuiPickersMonth-root {
+  @apply text-1.4 font-EffraReguler;
+}
+
+.MuiPickersCalendarHeader-switchHeader .MuiSvgIcon-root {
+  @apply rotate-180;
+}
+.MuiFormControl-root {
+  @apply relative before:absolute before:top-[15px] before:left-[17px] before:block  before:h-[28px] before:w-[28px]  before:bg-[url('~/Assets/images/icons/Calendar.svg')] before:bg-no-repeat;
+}
+.MuiInputBase-formControl .MuiOutlinedInput-input {
+  @apply font-EffraReguler rounded-none border-2 text-1.6 py-[1.85rem] px-[1.6rem] w-full border-gray-500 border-solid;
+}
+
+.MuiInputBase-formControl .MuiOutlinedInput-input.Mui-disabled {
+  @apply text-black;
+}
+.MuiOutlinedInput-notchedOutline {
+  border: none !important;
+}
+.MuiInputBase-formControl .MuiOutlinedInput-input::placeholder {
+  @apply font-EffraReguler;
+}
+
+.MuiPickersBasePicker-container .MuiPickersToolbar-toolbar,
+.MuiPickersBasePicker-container .MuiPickersDay-daySelected,
+.MuiPickersBasePicker-container .MuiPickersDay-daySelected:hover {
+  @apply bg-cambridge;
+}
+
+.MuiPickersBasePicker-container .MuiPickersMonth-monthSelected,
+.MuiPickersBasePicker-container .MuiTypography-colorPrimary {
+  @apply text-cambridge;
+}
+
+.MuiPickersBasePicker-container .MuiTypography-h4,
+.MuiPickersBasePicker-container .MuiTypography-caption {
+  @apply font-EffraReguler;
+}

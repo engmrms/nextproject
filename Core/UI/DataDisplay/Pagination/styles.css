@@ -1,0 +1,32 @@
+@import "../../../Assets/css/Shared.css";
+
+.pagination {
+  @apply flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6;
+}
+.pagination__mobile {
+  @apply flex flex-1 justify-between lg:hidden;
+}
+.pagination__paging {
+  @apply hidden lg:flex lg:flex-1 lg:items-center lg:justify-between;
+}
+.pagination__page {
+  @apply text-1.2 relative inline-flex items-center border border-gray-300 bg-white px-4 py-2 font-medium text-gray-700;
+}
+.pagination__page.active {
+  @apply text-1.2 relative inline-flex items-center border border-brand bg-white px-4 py-2 font-medium text-brand;
+}
+.pagination__page.hover {
+  @apply hover:bg-gray-300;
+}
+.pagination__list {
+  @apply relative z-0 inline-flex -space-x-px rounded-md shadow-none;
+}
+.pagination__action {
+  @apply relative inline-flex items-center rounded-l-md border border-gray-300 bg-white px-2 py-2 text-1.2 font-medium text-gray-700;
+}
+.pagination__icon {
+  @apply fill-brand h-10 w-10;
+}
+.pagination__result {
+  @apply text-1.2 text-gray-700;
+}

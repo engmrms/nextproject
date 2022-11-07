@@ -1,6 +1,9 @@
+import { yupResolver } from "@hookform/resolvers/yup";
 import { getCsrfToken, getProviders, getSession, signIn, SignInOptions } from "next-auth/react";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
+import * as yup from "yup";
+import { TextField } from "../../Core/UI/Controls";
 
 interface IFORM extends SignInOptions {
   email: string;
@@ -10,7 +13,15 @@ interface IFORM extends SignInOptions {
 
 function SignIn({ providers, csrfToken }: { providers: { name: any; id: string }; csrfToken: string }) {
   if (Object.values(providers)?.length === 0) return null;
-  const { register, handleSubmit } = useForm<IFORM>();
+  const schemaValidation = yup.object().shape({
+    email: yup.string().email("Invalid Email").required("Email is required"),
+    password: yup.string().required("Password is required"),
+  });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IFORM>({ resolver: yupResolver(schemaValidation) });
   const submitHandler = (data: IFORM) => {
     data.callbackUrl = `${window.location.origin}/`;
     signIn("credentials", data);
@@ -31,25 +42,23 @@ function SignIn({ providers, csrfToken }: { providers: { name: any; id: string }
         <form method="post" onSubmit={handleSubmit(submitHandler)}>
           <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
           <div className="grid grid-cols-1 space-y-4">
-            <label>
-              Email
-              <input
-                {...register("email")}
-                type="text"
-                className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
-              />
-            </label>
-            <label>
-              Password
-              <input
-                {...register("password")}
-                type="password"
-                className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
-              />
-              <a href="#" className="text-xs text-purple-600 hover:underline">
-                Forget Password?
-              </a>
-            </label>
+            <TextField
+              register={register}
+              name="email"
+              title="Email"
+              errors={errors}
+              required
+              className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"></TextField>
+
+            <TextField
+              register={register}
+              name="password"
+              title="Password"
+              type="password"
+              required
+              errors={errors}
+              className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"></TextField>
+
             <button
               type="submit"
               className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 mt-10">
