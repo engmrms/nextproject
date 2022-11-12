@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html,
+  body {
+    @apply p-0 m-0 bg-white h-full;
+  }
+  body {
+    @apply before:fixed before:top-0 before:left-0 before:h-full before:w-full before:opacity-70 before:z-10 before:bg-[#2a5555];
+  }
+  body > div {
+    @apply lg:h-full flex flex-col lg:flex-row overflow-hidden;
+  }
+}

@@ -2,15 +2,15 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable complexity */
 import React from "react";
-import { Path } from "react-hook-form";
+import { FieldValues, Path } from "react-hook-form";
 
 import { TextFieldProps } from "../index.model";
 
-type TextFieldCustomProps<T> = TextFieldProps<T> & {
+type TextFieldCustomProps<T extends FieldValues> = TextFieldProps<T> & {
   redirect?: React.ReactNode;
 };
 
-export function TextField<TFormValues>({
+export function TextField<TFormValues extends FieldValues>({
   register,
   name,
   title,
@@ -41,7 +41,7 @@ export function TextField<TFormValues>({
         {...rest}
       />
       {validation && (
-        <p className="mt-3 block text-1.4 text-red-500">
+        <p className="mt-3 block text-sm text-red-500">
           {validation?.message} {redirect}
         </p>
       )}

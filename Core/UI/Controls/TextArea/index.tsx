@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable no-eval */
-import React, { ChangeEvent, useEffect, useRef } from "react";
-import { Path } from "react-hook-form";
+import { ChangeEvent, useEffect, useRef } from "react";
+import { FieldValues, Path } from "react-hook-form";
 
 import { TextAreaProps } from "../index.model";
 
-export function TextArea<TFormValues>({ register, name, title, errors, required, ...rest }: TextAreaProps<TFormValues>) {
+export function TextArea<TFormValues extends FieldValues>({ register, name, title, errors, required, ...rest }: TextAreaProps<TFormValues>) {
   const refTextArea = useRef<HTMLTextAreaElement | null>(null);
+  if (!register) return;
   const { ref, onChange: regChnage, ...regRest } = register(name.replaceAll("?", "") as Path<TFormValues>);
   const handleHeight = () => {
     if (refTextArea.current !== null && refTextArea.current.scrollHeight) {

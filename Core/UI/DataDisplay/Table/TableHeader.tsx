@@ -1,7 +1,4 @@
 /* eslint-disable no-unused-expressions */
-/* eslint-disable no-magic-numbers */
-
-import React from "react";
 
 import { ColumnProps, TableHeaderProps } from "./model";
 
@@ -19,7 +16,7 @@ const TableHeader = <T,>({ columns, columnSort, className = "", onSort }: TableH
       if (onSort) onSort(curColumnSort);
     }
   };
-  const columnSortIcon = column => {
+  const columnSortIcon = (column: ColumnProps<T>) => {
     if (!column.isSort) return;
     if (columnSort && column.path !== columnSort.path)
       return (

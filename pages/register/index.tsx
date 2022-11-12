@@ -1,11 +1,11 @@
 import { useForm } from "react-hook-form";
 
-import { getSession, signIn } from "next-auth/react";
+import { getSession, signIn, SignInOptions } from "next-auth/react";
 import Link from "next/link";
 
 function Register() {
   const { register, handleSubmit } = useForm();
-  const submitHandler = data => {
+  const submitHandler = (data: SignInOptions) => {
     data.callbackUrl = `${window.location.origin}/`;
     signIn("credentials", data);
     console.log(data);

@@ -1,11 +1,10 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable complexity */
-import React from "react";
-import { Path } from "react-hook-form";
+import { FieldValues, Path } from "react-hook-form";
 
 import { CheckFieldProps } from "../index.model";
 
-export function CheckField<TFormValues>({
+export function CheckField<TFormValues extends FieldValues>({
   register,
   name,
   type = "radio",

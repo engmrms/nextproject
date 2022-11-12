@@ -5,7 +5,7 @@ import "./styles.css";
 
 // import { AngleRight, AngleLeft } from "basaricons";
 import _ from "lodash";
-import React, { MouseEvent } from "react";
+import { MouseEvent } from "react";
 
 interface IPagination {
   currentPage: number;

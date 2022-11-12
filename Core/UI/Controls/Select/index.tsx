@@ -1,12 +1,11 @@
 /* eslint-disable no-eval */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
-import React from "react";
-import { Path } from "react-hook-form";
+import { FieldValues, Path } from "react-hook-form";
 
 import { SelectProps } from "../index.model";
 
 // eslint-disable-next-line complexity
-export function Select<TFormValues>({
+export function Select<TFormValues extends FieldValues>({
   options,
   title,
   required,
@@ -38,17 +37,11 @@ export function Select<TFormValues>({
           {required && <span className="mr-4 text-red-700">*</span>}
         </label>
       )}
-      <select
-        {...attr}
-        onChange={e => {
-          attr.onChange(e);
-          getSelectedItem && getSelectedItem(options.filter(option => option.Id === +e.target.value)[0]);
-        }}
-        className={`block w-full ${errors?.[name] && "border-red-alert-100"} ${attr?.className}`}>
+      <select {...attr} className={`block w-full ${errors?.[name] && "border-red-alert-100"} ${attr?.className}`}>
         {selectText && <option value="">{selectText}</option>}
         {options &&
-          options?.map(option => (
-            <option key={option[valueProperty]} value={option[valueProperty]}>
+          (options as { [valueProperty: string]: string | number }[])?.map(option => (
+            <option key={option[valueProperty]} value={option[textProperty]}>
               {option[textProperty]}
             </option>
           ))}

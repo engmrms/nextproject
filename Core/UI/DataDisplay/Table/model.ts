@@ -2,6 +2,7 @@ export interface ColumnProps<T> {
   label: string;
   path?: string;
   key?: string;
+  isSort?: boolean;
   content?: (cell: T) => void;
 }
 export interface ColumnSort {

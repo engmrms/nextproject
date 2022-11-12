@@ -1,11 +1,11 @@
 import { InputHTMLAttributes, SelectHTMLAttributes, TextareaHTMLAttributes } from "react";
-import { Path, UseFormRegister } from "react-hook-form";
+import { FieldValues, Path, UseFormRegister } from "react-hook-form";
 
-interface IFormHooks<TFormValues> {
+interface IFormHooks<TFormValues extends FieldValues> {
   register: UseFormRegister<TFormValues> | null;
 }
 
-export interface TextFieldProps<TFormValues> extends InputHTMLAttributes<HTMLInputElement>, IFormHooks<TFormValues> {
+export interface TextFieldProps<TFormValues extends FieldValues> extends InputHTMLAttributes<HTMLInputElement>, IFormHooks<TFormValues> {
   name: Path<TFormValues> | string;
   type?: "text" | "number" | "password" | "hidden";
   title?: string;
@@ -15,7 +15,7 @@ export interface TextFieldProps<TFormValues> extends InputHTMLAttributes<HTMLInp
   };
 }
 
-export interface CheckFieldProps<TFormValues> extends InputHTMLAttributes<HTMLInputElement>, IFormHooks<TFormValues> {
+export interface CheckFieldProps<TFormValues extends FieldValues> extends InputHTMLAttributes<HTMLInputElement>, IFormHooks<TFormValues> {
   name: Path<TFormValues> | string;
   type?: "radio" | "checkbox";
   title?: string;
@@ -25,7 +25,7 @@ export interface CheckFieldProps<TFormValues> extends InputHTMLAttributes<HTMLIn
   };
 }
 
-export interface TextAreaProps<TFormValues> extends TextareaHTMLAttributes<HTMLTextAreaElement>, IFormHooks<TFormValues> {
+export interface TextAreaProps<TFormValues extends FieldValues> extends TextareaHTMLAttributes<HTMLTextAreaElement>, IFormHooks<TFormValues> {
   name: Path<TFormValues> | string;
   title?: string;
   required?: boolean;
@@ -34,7 +34,7 @@ export interface TextAreaProps<TFormValues> extends TextareaHTMLAttributes<HTMLT
   };
 }
 
-export interface SelectProps<TFormValues> extends SelectHTMLAttributes<HTMLSelectElement>, IFormHooks<TFormValues> {
+export interface SelectProps<TFormValues extends FieldValues> extends SelectHTMLAttributes<HTMLSelectElement>, IFormHooks<TFormValues> {
   name: Path<TFormValues> | string;
   options: any;
   selectText: string;
