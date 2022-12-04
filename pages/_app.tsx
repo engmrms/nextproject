@@ -3,7 +3,8 @@ import { SessionProvider, useSession } from "next-auth/react";
 import React, { JSXElementConstructor, ReactElement, ReactFragment, ReactPortal } from "react";
 import ToastContainer from "../context/toast/ToastContainer";
 import { ToastProvider } from "../context/toast/ToastContext";
-import "../styles/commingsoon.css";
+
+import "../styles/globals.css";
 
 type AppProps = {
   Component: NextPage & {
