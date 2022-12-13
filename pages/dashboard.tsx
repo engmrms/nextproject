@@ -23,4 +23,4 @@ Dashbaord.getLayout = (
 };
 export default Dashbaord;
 
-Dashbaord.auth = true;
+Dashbaord.auth = false;

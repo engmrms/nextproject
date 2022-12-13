@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 function About() {
   return (
     <section id="about" className="py-40 max-w-screen-lg mx-auto" data-sr-id="0">
@@ -56,8 +58,8 @@ function About() {
           </ul>
         </div>
         <div className="col-span-1 max-w-[300px] order-first md:order-last">
-          <div className=" relative w-full block rounded-lg transition-all bg-sky-500 shadow-lg  after:block">
-            <div data-gatsby-image-wrapper="" className="gatsby-image-wrapper gatsby-image-wrapper-constrained img">
+          <div className=" relative w-full block rounded-lg transition-all shadow-lg bg-sky-500   after:block after:absolute after:w-full after:h-full after:z-[-1] after:top-8 after:left-8 after:rounded-lg after:transition-all  after:border-2 after:border-sky-500 hover:after:top-6 hover:after:left-6">
+            <div className="">
               <div>
                 <img
                   alt=""
@@ -67,23 +69,15 @@ function About() {
                 />
               </div>
               <div aria-hidden="true" data-placeholder-image=""></div>
-
-              <picture>
-                <source
-                  type="image/avif"
-                  srcSet="/static/30a645f7db6038f83287d0c6042d3b2b/aebc8/me.avif 125w,
-/static/30a645f7db6038f83287d0c6042d3b2b/6b255/me.avif 250w,
-/static/30a645f7db6038f83287d0c6042d3b2b/f9526/me.avif 500w"
-                  sizes="(min-width: 500px) 500px, 100vw"
+              <div className="absolute top-0 left-0 h-full w-full">
+                <Image
+                  src="/assets/img/me-bg.png"
+                  alt=""
+                  width={300}
+                  height={300}
+                  className="object-cover mix-blend-multiply filter hover:filter-none hover:mix-blend-normal  rounded-lg opacity-100  h-full w-full right-0 bottom-0 max-w-none m-0 p-0"
                 />
-                <source
-                  type="image/webp"
-                  srcSet="/static/30a645f7db6038f83287d0c6042d3b2b/4155f/me.webp 125w,
-/static/30a645f7db6038f83287d0c6042d3b2b/02deb/me.webp 250w,
-/static/30a645f7db6038f83287d0c6042d3b2b/1ee78/me.webp 500w"
-                  sizes="(min-width: 500px) 500px, 100vw"
-                />
-              </picture>
+              </div>
             </div>
           </div>
         </div>

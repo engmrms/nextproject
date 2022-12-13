@@ -1,50 +1,12 @@
+import useSWR from "swr";
+import DTO from "../../../model/DTO";
+import { getProjects } from "../../../utils/db/project";
+
 function Projects() {
-  const otherProjects = [
-    {
-      title: "Jameah",
-      desc: "Work has been done to develop the user interface for a university system, which aims to provide complete, automatic and timely electronic services to support Saudi higher education institutions - whether governmental or private - and their affiliates including students, employees, faculty members, and other sectors.",
-      link: "https://jameah.moe.gov.sa/",
-      tech: ["Bootstrap", "JQuery", "Knockout", "PEGA"],
-    },
-    {
-      title: "Safeer Graduates",
-      desc: "Work has been done to develop the user interface of the university system, which aims to create channels of communication between graduate students studying abroad and various community institutions, which provides job opportunities for graduates.",
-      link: "https://safeergraduates.moe.gov.sa/",
-      tech: ["Bootstrap", "JQuery", "Knockout"],
-    },
+  const { data: projects } = useSWR("api/projects", getProjects);
 
-    {
-      title: "Study Communication",
-      desc: "Building a complete workflow system to handle all transactions between saudi cultural attache and special needs centers.",
-      link: "http://student.sacm.org.jo/",
-      tech: ["Bootstrap", "JQuery", "MySql", "PHP"],
-    },
-    {
-      title: "Endorsements",
-      desc: "Building a complete system to handle all transactions between saudi cultural attache and Jordan Univeristies in order to authenticate university certificates for reviewers also create letteres addressed to the emabassy.",
-      link: "http://ratif.sacm.org.jo/",
-      tech: ["Bootstrap", "JQuery", "MySql", "PHP"],
-    },
-  ];
-
-  const projects = [
-    {
-      title: "Cultural Scolarship Program",
-      desc: "Providing technology within a platform directed to our customers by developing smart solutions and distinguished services that contribute to facilitating the procedures for studying abroad based on best international practices and standards in accordance with the scholarship regulations and legislation of the Saudi Ministry of Cultural .",
-      link: "https://scholarship.moc.gov.sa",
-      img: "/assets/img/csp.jpeg",
-      isFeatured: true,
-      tech: ["REACT", "TAILWINDCSS", "TYPESCRIPT", "VITEJS", "RTQUERY"],
-    },
-    {
-      title: "Safeer2",
-      desc: "Providing technology within a platform directed to our customers by developing smart solutions and distinguished services that contribute to facilitating the procedures for studying abroad based on best international practices and standards in accordance with the scholarship regulations and legislation of the Saudi Ministry of Education .",
-      link: "https://safeer2.moe.gov.sa/",
-      img: "/assets/img/safeer2.png",
-      isFeatured: false,
-      tech: ["HTML", "CSS", "JS", "BOOTSTRAP", "KNOCKOUT", "PEGA"],
-    },
-  ];
+  const otherProjects = projects?.data?.projectsData?.filter((project: DTO.IProjects) => !project.isStar);
+  const starProjects = projects?.data?.projectsData?.filter((project: DTO.IProjects) => project.isStar);
 
   return (
     <>
@@ -58,10 +20,10 @@ function Projects() {
         </h2>
 
         <ul className="space-y-40 ">
-          {projects.map((project, index) => (
+          {starProjects?.map((project: DTO.IProjects, index: number) => (
             <li
               data-aos="fade-up"
-              key={`proj${index}`}
+              key={`proj${project.id}`}
               data-aos-delay="300"
               data-aos-duration="1000"
               className="grid gap-4  grid-cols-1 md:grid-cols-12 items-center">
@@ -72,7 +34,11 @@ function Projects() {
                 {project.isFeatured && <p className="my-4 md:text-sky-500 text-white mt-8 text-1.2 ">Featured Project</p>}
 
                 <h3 className="mb-8 text-2.6 font-semibold ">
-                  <a href={project.link} className="relative z-[1] md:text-slate-700  text-white" rel="noopener noreferrer" target="_blank">
+                  <a
+                    href={project.link}
+                    className="relative z-[1] md:text-slate-700 dark:text-slate-200  text-white"
+                    rel="noopener noreferrer"
+                    target="_blank">
                     {project.title}
                   </a>
                 </h3>
@@ -164,8 +130,8 @@ function Projects() {
         </h2>
 
         <ul className="mt-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 relative p-0">
-          {otherProjects.map((project, indx) => (
-            <li key={`proj${indx}`} data-aos="fade-up" data-aos-delay={`${indx}00`} data-aos-duration="1000">
+          {otherProjects?.map((project: DTO.IProjects, indx: number) => (
+            <li key={`proj${project?.id}`} data-aos="fade-up" data-aos-delay={`${indx}00`} data-aos-duration="1000">
               <div className="flex hover:-translate-y-3 flex-col justify-between items-start relative h-full px-11 py-12 rounded-md transition-all overflow-auto bg-[#1e293b] shadow-sm">
                 <header>
                   <div className="flex justify-between mb-14 items-center">

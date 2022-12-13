@@ -1,57 +1,10 @@
 import { Tab } from "@headlessui/react";
-
+import useSWR from "swr";
+import DTO from "../../../model/DTO";
+import { getJobs } from "../../../utils/db/job";
 function Jobs() {
-  const jobs = [
-    {
-      institute: { name: "Tatweer Educational Technology", abbreviation: "Tetco" },
-      jobTitle: "SENIOR FRONTEND",
-      city: "Riyadh",
-      country: "Saudi Arabia",
-      link: "https://www.tetco.sa/",
-      from: { month: "June", year: "2017" },
-      to: null,
-      duties: [
-        "UI development by PEGA platform",
-        "Write clean, testable code using React, knockout, jQuery programminglibrary",
-        "Writing cross-browser compliant HTML, JS and CSS",
-        "Review and refactor code",
-        "Deploy fully functional applications",
-        "Performing SCRUM to manage agile methodology",
-      ],
-    },
-    {
-      institute: { name: "Ministry of Education", abbreviation: "MOE" },
-      jobTitle: "FRONTEND",
-      city: "Riyadh",
-      country: "Saudi Arabia",
-      link: "https://moe.gov.sa/",
-      from: { month: "May", year: "2016" },
-      to: { month: "May", year: "2017" },
-      duties: [
-        "Developing and maintaining front end functionality of websites",
-        "Write clean, testable code usingknockout, jQuery programming library",
-        "Writing cross-browser compliant HTML, JS and CSS",
-        "Applying web themes to MVC, ASP web forms AND ADF application",
-      ],
-    },
-    {
-      institute: { name: "Saudi Cultural Attaché", abbreviation: "SCA" },
-      jobTitle: "FULL STACK",
-      city: "Amman",
-      country: "Jodan",
-      link: "https://jo.moe.gov.sa/ar/Pages/default.aspx",
-      from: { month: "August", year: "2008" },
-      to: { month: "April", year: "2016" },
-      duties: [
-        "Gathering requirements",
-        "Creating database structure, design and Development",
-        "Hiring programming concepts and skills for developing software",
-        "Working on handling the new requirements and fixing bugs",
-        "Working on generating and gathering feeds for the project",
-        "Training employeeto use ERP (Enterprise Resources Planning) system (Financial and HR system) and follow up with developers for any updates,upgrade or solve any bug in the system",
-      ],
-    },
-  ];
+  const { data: jobs, error, isLoading } = useSWR("api/jobs", getJobs);
+
   return (
     <section id="job" className="py-40 max-w-screen-lg mx-auto">
       <h2
@@ -65,9 +18,10 @@ function Jobs() {
       <div data-aos="fade-up" data-aos-delay="300" data-aos-duration="1000" className="w-full flex px-2 py-16 sm:px-0 space-x-8 md:flex-row flex-col">
         <Tab.Group vertical>
           <Tab.List className="flex md:flex-col  mb-12">
-            {jobs.map(job => (
+            {jobs?.data?.jobsData?.map((job: DTO.IJob) => (
               <Tab
                 as="button"
+                key={`jobTab${job?.id}`}
                 className={({ selected }) =>
                   `flex items-center h-16 w-full px-8 pb-1  md:border-l-2 border-b-2 md:border-b-0  whitespace-nowrap text-1.4 outline-none ${
                     selected
@@ -80,8 +34,8 @@ function Jobs() {
             ))}
           </Tab.List>
           <Tab.Panels>
-            {jobs.map((job, index) => (
-              <Tab.Panel key={`job${index}`} className="px-2 py-4">
+            {jobs?.data?.jobsData?.map((job: DTO.IJob) => (
+              <Tab.Panel key={`job${job?.id}`} className="px-2 py-4">
                 <h3 className="">
                   <span>{job.jobTitle.toUpperCase()}</span>
                   <span className="text-sky-500">
